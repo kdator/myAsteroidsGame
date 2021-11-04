@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
 
-using System;
+using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame.Source.Objects
 {

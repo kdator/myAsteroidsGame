@@ -1,7 +1,6 @@
 ﻿using myAsteroidsGame.Source.Graphics;
 using myAsteroidsGame.Source.Physics;
-
-using Microsoft.Xna.Framework;
+using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame.Source.Objects
 {

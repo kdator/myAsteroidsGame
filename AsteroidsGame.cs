@@ -68,10 +68,10 @@ namespace myAsteroidsGame
             spriteBatch_.Begin();
             foreach (GameObject obj in gameManager_.ActiveObjects())
             {
-                var newPos = obj.Transform.Position;
+                Source.Utils.Vector2 newPos = obj.Transform.Position;
                 ToScreenPosition(ref newPos);
                 obj.Transform.Position = newPos;
-                spriteBatch_.Draw(obj.Graphics.Texture, obj.Transform.Position, null, Color.White,
+                spriteBatch_.Draw(obj.Graphics.Texture, ToXnaVector2(obj.Transform.Position), null, Color.White,
                                   obj.Transform.RotationInRadians, obj.Graphics.Origin,
                                   1f, SpriteEffects.None, 0f);
             }
@@ -80,10 +80,15 @@ namespace myAsteroidsGame
             base.Draw(gameTime);
         }
 
-        private void ToScreenPosition(ref Vector2 v)
+        private void ToScreenPosition(ref Source.Utils.Vector2 v)
         {
             v.X = (v.X % screenWidth_ + screenWidth_) % screenWidth_;
             v.Y = (v.Y % screenHeight_ + screenHeight_) % screenHeight_;
+        }
+
+        private Microsoft.Xna.Framework.Vector2 ToXnaVector2(Source.Utils.Vector2 value)
+        {
+            return new Microsoft.Xna.Framework.Vector2(value.X, value.Y);
         }
     }
 }
