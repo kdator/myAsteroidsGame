@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 
 using myAsteroidsGame.Source;
 using myAsteroidsGame.Source.Objects;
-using myAsteroidsGame.Source.Physics;
 using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame
@@ -44,7 +43,10 @@ namespace myAsteroidsGame
         {
             spriteBatch_ = new SpriteBatch(GraphicsDevice);
 
-            gameManager_.SetTexture(TextureID.PLAYER_SPACESHIP, Content.Load<Texture2D>("player_spaceship"));
+            gameManager_.LoadContent(TextureID.PLAYER_SPACESHIP, Content.Load<Texture2D>("player_spaceship"));
+            gameManager_.LoadContent(TextureID.ASTEROID, Content.Load<Texture2D>("asteroid"));
+            gameManager_.LoadContent(TextureID.ASTEROID_SHARD, Content.Load<Texture2D>("asteroid_shard"));
+            gameManager_.LoadContent(TextureID.BULLET, Content.Load<Texture2D>("bullet"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +57,7 @@ namespace myAsteroidsGame
             gameManager_.ProccessKeyboardInput(Keyboard.GetState());
             gameManager_.UpdateObjects();
             gameManager_.UpdatePhysics((float)gameTime.ElapsedGameTime.TotalSeconds);
+            gameManager_.UpdateAsteroids();
 
             base.Update(gameTime);
         }

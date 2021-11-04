@@ -1,23 +1,23 @@
-﻿using myAsteroidsGame.Source.Graphics;
-using myAsteroidsGame.Source.Physics;
+﻿using System;
 
-using System;
+using myAsteroidsGame.Source.Graphics;
+using myAsteroidsGame.Source.Physics;
 
 namespace myAsteroidsGame.Source.Objects
 {
-    class AsteroidShard : Asteroid
+    class BigAsteroid : Asteroid
     {
-        private float maxSpeed_ = 150.0f;
+        private float maxSpeed_ = 100.0f;
         private float acceleration_ = 200.0f;
 
-        public AsteroidShard(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
+        public BigAsteroid(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
             : base(xPos, yPos, physic, graphics)
         {
             Random r = new Random();
             Transform.RotationDegree = r.Next(0, 361);
         }
 
-        public AsteroidShard(float xPos, float yPos) : base(xPos, yPos)
+        public BigAsteroid(float xPos, float yPos) : base(xPos, yPos)
         {
             Random r = new Random();
             Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);

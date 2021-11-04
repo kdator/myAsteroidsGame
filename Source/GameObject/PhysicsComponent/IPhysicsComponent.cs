@@ -2,7 +2,7 @@
 
 namespace myAsteroidsGame.Source.Physics
 {
-    interface IPhysicComponent
+    interface IPhysicsComponent
     {
         /// <summary>
         /// Update position of a physical component of every frame.
@@ -25,7 +25,7 @@ namespace myAsteroidsGame.Source.Physics
         /// <summary>
         /// Get current velocity.
         /// </summary>
-        Vector2 Velocity { get; }
+        Vector2 Velocity { get; set; }
 
         /// <summary>
         /// Get maximum speed for this physic component.

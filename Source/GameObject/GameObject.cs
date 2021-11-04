@@ -8,8 +8,8 @@ namespace myAsteroidsGame.Source.Objects
         private Transform transform_;
         public Transform Transform => transform_;
 
-        private IPhysicComponent physic_;
-        public IPhysicComponent Physic
+        private IPhysicsComponent physic_;
+        public IPhysicsComponent Physic
         {
             get => physic_;
             set => physic_ = value;
@@ -29,7 +29,7 @@ namespace myAsteroidsGame.Source.Objects
             set => isActive_ = value;
         }
 
-        public GameObject(float xPos, float yPos, IPhysicComponent physic, IGraphicsComponent graphics)
+        public GameObject(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
         {
             transform_ = new Transform(xPos, yPos);
             physic_ = physic;

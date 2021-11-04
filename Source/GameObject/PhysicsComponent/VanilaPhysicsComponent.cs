@@ -4,7 +4,7 @@ using myAsteroidsGame.Source.Objects;
 
 namespace myAsteroidsGame.Source.Physics
 {
-    class VanilaPhysicComponent : IPhysicComponent
+    class VanilaPhysicsComponent : IPhysicsComponent
     {
         private float mass_;
         private Transform transformAttached_;
@@ -20,9 +20,12 @@ namespace myAsteroidsGame.Source.Physics
         public Vector2 Acceleration => acceleration_;
 
         private Vector2 velocity_;
-        public Vector2 Velocity => velocity_;
+        public Vector2 Velocity { 
+            get => velocity_;
+            set => velocity_ = value;
+        } 
 
-        public VanilaPhysicComponent(Transform transform, float mass, float maxSpeed)
+        public VanilaPhysicsComponent(Transform transform, float mass, float maxSpeed)
         {
             transformAttached_ = transform;
             acceleration_ = Vector2.Zero;

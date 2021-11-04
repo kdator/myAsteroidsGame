@@ -11,7 +11,7 @@ namespace myAsteroidsGame.Source.Objects
         private float acceleration_;
         private float friction_;
 
-        public PlayerSpaceship(float xPos, float yPos, IPhysicComponent physic, IGraphicsComponent graphics)
+        public PlayerSpaceship(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
             : base(xPos, yPos, physic, graphics)
         {
             maxSpeed_ = 1000.0f;
@@ -25,7 +25,7 @@ namespace myAsteroidsGame.Source.Objects
             maxSpeed_ = 1000.0f;
             acceleration_ = 500.0f;
             friction_ = 250.0f;
-            Physic = new VanilaPhysicComponent(Transform, 1.0f, maxSpeed_);
+            Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);
             Graphics = new GraphicsComponent();
         }
 
