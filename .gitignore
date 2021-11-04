@@ -41,6 +41,8 @@ _ReSharper*/
 #Project files
 [Bb]uild/
 .vs/
+Content/bin/
+Content/obj/
 
 #Subversion files
 .svn
