@@ -1,7 +1,8 @@
 ﻿using System;
 
-using myAsteroidsGame.Source.Graphics;
-using myAsteroidsGame.Source.Physics;
+using myAsteroidsGame.Source.GameObjects;
+using myAsteroidsGame.Source.GameObjects.Graphics;
+using myAsteroidsGame.Source.GameObjects.Physics;
 
 namespace myAsteroidsGame.Source.Objects
 {
@@ -15,6 +16,7 @@ namespace myAsteroidsGame.Source.Objects
         {
             Random r = new Random();
             Transform.RotationDegree = r.Next(0, 361);
+            Name = "BigAsteroid";
         }
 
         public BigAsteroid(float xPos, float yPos) : base(xPos, yPos)
@@ -23,6 +25,7 @@ namespace myAsteroidsGame.Source.Objects
             Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);
             Graphics = new GraphicsComponent();
             Transform.RotationDegree = r.Next(0, 361);
+            Name = "BigAsteroid";
         }
 
         public override void Update()

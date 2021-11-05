@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Objects;
+using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame.Source
@@ -47,7 +48,7 @@ namespace myAsteroidsGame.Source
         {
             UpdateObjects();
             UpdatePhysics(deltaTime);
-            UpdateAsteroids();
+            SpawnAsteroids();
         }
 
         public void DestroyObject(GameObject gameObject)
@@ -118,11 +119,6 @@ namespace myAsteroidsGame.Source
             foreach (var obj in goToDestroy_)
                 go_.Remove(obj);
             goToDestroy_.Clear();
-        }
-
-        private void UpdateAsteroids()
-        {
-            SpawnAsteroids();
         }
     }
 }

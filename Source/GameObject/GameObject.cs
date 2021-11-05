@@ -1,7 +1,7 @@
-﻿using myAsteroidsGame.Source.Graphics;
-using myAsteroidsGame.Source.Physics;
+﻿using myAsteroidsGame.Source.GameObjects.Graphics;
+using myAsteroidsGame.Source.GameObjects.Physics;
 
-namespace myAsteroidsGame.Source.Objects
+namespace myAsteroidsGame.Source.GameObjects
 {
     class GameObject
     {
@@ -28,6 +28,8 @@ namespace myAsteroidsGame.Source.Objects
             get => isActive_;
             set => isActive_ = value;
         }
+
+        public string Name { get; set; } = "GameObject";
 
         public GameObject(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
         {

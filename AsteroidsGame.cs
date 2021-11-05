@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using myAsteroidsGame.Source;
-using myAsteroidsGame.Source.Objects;
+using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame
@@ -68,7 +68,7 @@ namespace myAsteroidsGame
                 ToScreenPosition(ref newPos);
                 obj.Transform.Position = newPos;
                 spriteBatch_.Draw(obj.Graphics.Texture, ToXnaVector2(obj.Transform.Position), null, Color.White,
-                                  obj.Transform.RotationInRadians, obj.Graphics.Origin,
+                                  obj.Transform.RotationInRadians, ToXnaVector2(obj.Graphics.Origin),
                                   1f, SpriteEffects.None, 0f);
             }
             spriteBatch_.End();
