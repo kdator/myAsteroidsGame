@@ -1,8 +1,9 @@
-﻿using myAsteroidsGame.Source.Graphics;
+﻿using System;
+
+using myAsteroidsGame.Source.Graphics;
 using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Physics;
 using myAsteroidsGame.Source.Utils;
-using System;
 
 namespace myAsteroidsGame.Source.Objects
 {
@@ -11,6 +12,7 @@ namespace myAsteroidsGame.Source.Objects
         private float maxSpeed_;
         private float acceleration_;
         private float friction_;
+        private float delayPerShoot_;
 
         public PlayerSpaceship(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
             : base(xPos, yPos, physic, graphics)
@@ -18,6 +20,7 @@ namespace myAsteroidsGame.Source.Objects
             maxSpeed_ = 600.0f;
             acceleration_ = 500.0f;
             friction_ = 250.0f;
+            delayPerShoot_ = 3.0f;
             Physic.MaxSpeed = maxSpeed_;
         }
 
@@ -42,11 +45,15 @@ namespace myAsteroidsGame.Source.Objects
 
         public void Shoot()
         {
-            var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
-                                    Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
-                                    Transform.RotationDegree);
-            bullet.Graphics.Texture = GameManagerInternal.GetInstance().GetTexture(TextureID.BULLET);
-            GameManagerInternal.GetInstance().AddObject(bullet);
+            if (delayPerShoot_ <= 0.0f)
+            {
+                var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
+                                                    Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
+                                                    Transform.RotationDegree);
+                bullet.Graphics.Texture = GameManagerInternal.GetTexture(TextureID.BULLET);
+                GameManagerInternal.AddObject(bullet);
+                delayPerShoot_ = 3.0f;
+            }
         }
 
         public override void Update()
@@ -59,6 +66,9 @@ namespace myAsteroidsGame.Source.Objects
                 Vector2 opposite = Vector2.Negate(norm);
                 Physic.ApplyForce(opposite * friction_);
             }
+            delayPerShoot_ -= 0.25f;
+            if (delayPerShoot_ > 3.0f && delayPerShoot_ < float.MaxValue)
+                delayPerShoot_ = 3.0f;
         }
     }
 }
