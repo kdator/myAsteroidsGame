@@ -1,6 +1,8 @@
 ﻿using myAsteroidsGame.Source.Graphics;
+using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Physics;
 using myAsteroidsGame.Source.Utils;
+using System;
 
 namespace myAsteroidsGame.Source.Objects
 {
@@ -13,7 +15,7 @@ namespace myAsteroidsGame.Source.Objects
         public PlayerSpaceship(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
             : base(xPos, yPos, physic, graphics)
         {
-            maxSpeed_ = 1000.0f;
+            maxSpeed_ = 600.0f;
             acceleration_ = 500.0f;
             friction_ = 250.0f;
             Physic.MaxSpeed = maxSpeed_;
@@ -36,6 +38,15 @@ namespace myAsteroidsGame.Source.Objects
         public void FlyForward()
         {
             Physic.ApplyForce(acceleration_ * Transform.RotationDirection);
+        }
+
+        public void Shoot()
+        {
+            var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
+                                    Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
+                                    Transform.RotationDegree);
+            bullet.Graphics.Texture = GameManagerInternal.GetTexture(TextureID.BULLET);
+            GameManagerInternal.AddObject(bullet);
         }
 
         public override void Update()
