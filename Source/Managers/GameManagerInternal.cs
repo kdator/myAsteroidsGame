@@ -24,17 +24,17 @@ namespace myAsteroidsGame.Source.Managers
             return instance_;
         }
 
-        public static void DestroyObject(GameObject gameObject)
+        public void DestroyObject(GameObject gameObject)
         {
             gameManager_.DestroyObject(gameObject);
         }
 
-        public static void AddObject(GameObject gameObject)
+        public void AddObject(GameObject gameObject)
         {
             gameManager_.AddObject(gameObject);
         }
 
-        public static Texture2D GetTexture(TextureID textureID)
+        public Texture2D GetTexture(TextureID textureID)
         {
             return gameManager_.GetTexture(textureID);
         }  

@@ -45,8 +45,8 @@ namespace myAsteroidsGame.Source.Objects
             var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
                                     Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
                                     Transform.RotationDegree);
-            bullet.Graphics.Texture = GameManagerInternal.GetTexture(TextureID.BULLET);
-            GameManagerInternal.AddObject(bullet);
+            bullet.Graphics.Texture = GameManagerInternal.GetInstance().GetTexture(TextureID.BULLET);
+            GameManagerInternal.GetInstance().AddObject(bullet);
         }
 
         public override void Update()
