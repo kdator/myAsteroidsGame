@@ -21,7 +21,7 @@ namespace myAsteroidsGame.Source.Objects
         public override void Update()
         {
             if (timeToLife_ <= 0.0f)
-                GameManagerInternal.DestroyObject(this);
+                GameManagerInternal.GetInstance().DestroyObject(this);
             else
                 timeToLife_ -= 0.15f;
         }
