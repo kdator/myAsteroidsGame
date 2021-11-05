@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
-namespace myAsteroidsGame.Source.Graphics
+using myAsteroidsGame.Source.Utils;
+
+namespace myAsteroidsGame.Source.GameObjects.Graphics
 {
     class GraphicsComponent : IGraphicsComponent
     {

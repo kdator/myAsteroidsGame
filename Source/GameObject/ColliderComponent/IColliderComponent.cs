@@ -1,11 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace myAsteroidsGame.Source.Collider
+using myAsteroidsGame.Source.Utils;
+
+namespace myAsteroidsGame.Source.GameObjects.ColliderComponent
 {
     interface IColliderComponent
     {
-        
+        public void OnCollision();
+
+        public void OnRadiusEnter();
+
+        public void UpdateVertexes();
+
+        public List<Vector2> GetAbsoluteVertexes();
+
+        public float Radius { get; }
     }
 }

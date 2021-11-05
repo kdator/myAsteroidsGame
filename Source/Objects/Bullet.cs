@@ -1,6 +1,7 @@
-﻿using myAsteroidsGame.Source.Graphics;
+﻿using myAsteroidsGame.Source.GameObjects;
+using myAsteroidsGame.Source.GameObjects.Graphics;
+using myAsteroidsGame.Source.GameObjects.Physics;
 using myAsteroidsGame.Source.Managers;
-using myAsteroidsGame.Source.Physics;
 
 namespace myAsteroidsGame.Source.Objects
 {
@@ -16,6 +17,7 @@ namespace myAsteroidsGame.Source.Objects
             Graphics = new GraphicsComponent();
             Transform.RotationDegree = rotation;
             Physic.Velocity = maxSpeed_ * Transform.RotationDirection;
+            Name = "Bullet";
         }
 
         public override void Update()

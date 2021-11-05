@@ -1,6 +1,6 @@
 ﻿using myAsteroidsGame.Source.Utils;
 
-namespace myAsteroidsGame.Source.Physics
+namespace myAsteroidsGame.Source.GameObjects.Physics
 {
     interface IPhysicsComponent
     {

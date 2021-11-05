@@ -1,5 +1,5 @@
-﻿using myAsteroidsGame.Source.Graphics;
-using myAsteroidsGame.Source.Physics;
+﻿using myAsteroidsGame.Source.GameObjects.Graphics;
+using myAsteroidsGame.Source.GameObjects.Physics;
 
 using System;
 
@@ -15,6 +15,7 @@ namespace myAsteroidsGame.Source.Objects
         {
             Random r = new Random();
             Transform.RotationDegree = r.Next(0, 361);
+            Name = "AsteroidShard";
         }
 
         public AsteroidShard(float xPos, float yPos) : base(xPos, yPos)
@@ -23,6 +24,7 @@ namespace myAsteroidsGame.Source.Objects
             Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);
             Graphics = new GraphicsComponent();
             Transform.RotationDegree = r.Next(0, 361);
+            Name = "AsteroidShard";
         }
 
         public override void Update()

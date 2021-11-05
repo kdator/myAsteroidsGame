@@ -2,7 +2,7 @@
 
 using myAsteroidsGame.Source.Utils;
 
-namespace myAsteroidsGame.Source.Objects
+namespace myAsteroidsGame.Source.GameObjects
 {
     class Transform
     {

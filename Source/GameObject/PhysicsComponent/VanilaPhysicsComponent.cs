@@ -1,7 +1,6 @@
 ﻿using myAsteroidsGame.Source.Utils;
-using myAsteroidsGame.Source.Objects;
 
-namespace myAsteroidsGame.Source.Physics
+namespace myAsteroidsGame.Source.GameObjects.Physics
 {
     class VanilaPhysicsComponent : IPhysicsComponent
     {
@@ -36,11 +35,7 @@ namespace myAsteroidsGame.Source.Physics
         public void Update(float deltaTime)
         {
             velocity_ += acceleration_ * deltaTime;
-            if (velocity_.Length() >= maxSpeed_)
-            {
-                Vector2 norm = Vector2.Normalize(velocity_);
-                velocity_ = norm * maxSpeed_;
-            }
+            CorrectVelocity(velocity_);
             transformAttached_.Position += velocity_ * deltaTime;
             acceleration_ = Vector2.Zero;
         }
@@ -48,6 +43,15 @@ namespace myAsteroidsGame.Source.Physics
         public void ApplyForce(Vector2 force)
         {
             acceleration_ += force;
+        }
+
+        private void CorrectVelocity(Vector2 v)
+        {
+            if (v.Length() >= maxSpeed_)
+            {
+                Vector2 norm = Vector2.Normalize(v);
+                velocity_ = norm * maxSpeed_;
+            }
         }
     }
 }
