@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-
-using myAsteroidsGame.Source.Graphics;
+﻿using myAsteroidsGame.Source.Graphics;
+using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Physics;
 
 namespace myAsteroidsGame.Source.Objects
 {
     class Bullet : GameObject
     {
-        private float maxSpeed_ = 400.0f;
+        private float maxSpeed_ = 500.0f;
         private float timeToLife_ = 10.0f;
 
         public Bullet(float xPos, float yPos, float rotation) :
@@ -21,6 +20,10 @@ namespace myAsteroidsGame.Source.Objects
 
         public override void Update()
         {
+            if (timeToLife_ <= 0.0f)
+                GameManagerInternal.DestroyObject(this);
+            else
+                timeToLife_ -= 0.15f;
         }
     }
 }

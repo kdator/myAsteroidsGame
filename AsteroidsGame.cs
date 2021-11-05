@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -55,9 +53,7 @@ namespace myAsteroidsGame
                 Exit();
 
             gameManager_.ProccessKeyboardInput(Keyboard.GetState());
-            gameManager_.UpdateObjects();
-            gameManager_.UpdatePhysics((float)gameTime.ElapsedGameTime.TotalSeconds);
-            gameManager_.UpdateAsteroids();
+            gameManager_.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Objects;
 using myAsteroidsGame.Source.Utils;
 
@@ -13,6 +13,7 @@ namespace myAsteroidsGame.Source
     {
         private PlayerSpaceship spaceship_;
         private List<GameObject> go_;
+        private List<GameObject> goToDestroy_;
         private List<Asteroid> asteroids_;
         private Dictionary<TextureID, Texture2D> texture2go_;
         private List<Tuple<int, int>> asteroidsSpawnBounds_;
@@ -22,9 +23,11 @@ namespace myAsteroidsGame.Source
         {
             spaceship_ = new PlayerSpaceship(screenWidth / 2, screenHeight / 2);
             go_ = new List<GameObject>();
+            goToDestroy_ = new List<GameObject>();
             asteroids_ = new List<Asteroid>();
             texture2go_ = new Dictionary<TextureID, Texture2D>();
             asteroidsSpawnBounds_ = new List<Tuple<int, int>>();
+            GameManagerInternal.GM = this;
             respawnTime_ = 5.0f;
 
             go_.Add(spaceship_);
@@ -39,21 +42,26 @@ namespace myAsteroidsGame.Source
                 spaceship_.Graphics.Texture = texture;
         }
 
-        public void UpdatePhysics(float deltaTime)
+        public void Update(float deltaTime)
         {
-            foreach (var obj in go_)
-                obj.Physic.Update(deltaTime);
+            UpdateObjects();
+            UpdatePhysics(deltaTime);
+            UpdateAsteroids();
         }
 
-        public void UpdateObjects()
+        public void DestroyObject(GameObject gameObject)
         {
-            foreach (var obj in go_)
-                obj.Update();
+            goToDestroy_.Add(gameObject);
         }
 
-        public void UpdateAsteroids()
+        public void AddObject(GameObject gameObject)
         {
-            SpawnAsteroids();
+            go_.Add(gameObject);
+        }
+
+        public Texture2D GetTexture(TextureID textureID)
+        {
+            return texture2go_[textureID];
         }
 
         public void ProccessKeyboardInput(KeyboardState kstate)
@@ -65,13 +73,7 @@ namespace myAsteroidsGame.Source
             if (kstate.IsKeyDown(Keys.Right))
                 spaceship_.Rotate(5.0f);
             if (kstate.IsKeyDown(Keys.Space))
-            {
-                var bullet = new Bullet(spaceship_.Transform.Position.X + (float)Math.Sin(spaceship_.Transform.RotationInRadians) * spaceship_.Graphics.Texture.Height / 2,
-                                        spaceship_.Transform.Position.Y - (float)Math.Cos(spaceship_.Transform.RotationInRadians) * spaceship_.Graphics.Texture.Height / 2, 
-                                        spaceship_.Transform.RotationDegree);
-                bullet.Graphics.Texture = texture2go_[TextureID.BULLET];
-                go_.Add(bullet);
-            }
+                spaceship_.Shoot();
         }
 
         public System.Collections.IEnumerable ActiveObjects()
@@ -100,6 +102,26 @@ namespace myAsteroidsGame.Source
                 }
                 respawnTime_ -= 0.2f;
             }
+        }
+
+        private void UpdatePhysics(float deltaTime)
+        {
+            foreach (var obj in go_)
+                obj.Physic.Update(deltaTime);
+        }
+
+        private void UpdateObjects()
+        {
+            foreach (var obj in go_)
+                obj.Update();
+            foreach (var obj in goToDestroy_)
+                go_.Remove(obj);
+            goToDestroy_.Clear();
+        }
+
+        private void UpdateAsteroids()
+        {
+            SpawnAsteroids();
         }
     }
 }
