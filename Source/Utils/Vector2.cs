@@ -75,7 +75,7 @@ namespace myAsteroidsGame.Source.Utils
 
         private static float Lerp(float value1, float value2, float by)
         {
-            return value1 + (value2 - value1) * by;
+            return value1 * (1 - by) + value2 * by;
         }
     }
 }
