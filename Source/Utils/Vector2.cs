@@ -56,6 +56,15 @@ namespace myAsteroidsGame.Source.Utils
             return new Vector2(value.X * -1f, value.Y * -1f);
         }
 
+        public static Vector2 Lerp(Vector2 value1, Vector2 value2, float by)
+        {
+            if (by >= 1.0000f)
+                by = 1.0000f;
+            float xPos = Lerp(value1.X, value2.X, by);
+            float yPos = Lerp(value1.Y, value2.Y, by);
+            return new Vector2(xPos, yPos);
+        }
+
         public float Length()
         {
             return Convert.ToSingle(Math.Sqrt(xPos_ * xPos_ + yPos_ * yPos_));
@@ -63,5 +72,10 @@ namespace myAsteroidsGame.Source.Utils
 
         public override int GetHashCode() => (xPos_, yPos_).GetHashCode();
         public override bool Equals(object obj) => (obj is Vector2) && this == (Vector2)obj;
+
+        private static float Lerp(float value1, float value2, float by)
+        {
+            return value1 + (value2 - value1) * by;
+        }
     }
 }

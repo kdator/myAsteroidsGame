@@ -45,6 +45,7 @@ namespace myAsteroidsGame
             gameManager_.LoadContent(TextureID.ASTEROID, Content.Load<Texture2D>("asteroid"));
             gameManager_.LoadContent(TextureID.ASTEROID_SHARD, Content.Load<Texture2D>("asteroid_shard"));
             gameManager_.LoadContent(TextureID.BULLET, Content.Load<Texture2D>("bullet"));
+            gameManager_.LoadContent(TextureID.UFO, Content.Load<Texture2D>("ufo"));
         }
 
         protected override void Update(GameTime gameTime)

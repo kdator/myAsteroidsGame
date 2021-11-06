@@ -14,6 +14,7 @@ namespace myAsteroidsGame.Source
     class GameManager
     {
         private PlayerSpaceship spaceship_;
+        private UFO followingUfo_;
         private List<GameObject> go_;
         private List<GameObject> goToDestroy_;
         private List<Asteroid> asteroids_;
@@ -24,6 +25,7 @@ namespace myAsteroidsGame.Source
         public GameManager(int screenWidth, int screenHeight)
         {
             spaceship_ = new PlayerSpaceship(screenWidth / 2, screenHeight / 2);
+            followingUfo_ = new UFO(screenWidth - 40, screenHeight - 40, spaceship_);
             go_ = new List<GameObject>();
             goToDestroy_ = new List<GameObject>();
             asteroids_ = new List<Asteroid>();
@@ -33,6 +35,7 @@ namespace myAsteroidsGame.Source
             respawnTime_ = 5.0f;
 
             go_.Add(spaceship_);
+            go_.Add(followingUfo_);
             asteroidsSpawnBounds_.Add(new Tuple<int, int>(10, screenHeight - 200));
             asteroidsSpawnBounds_.Add(new Tuple<int, int>(screenWidth - 10, screenHeight - 200));
         }
@@ -42,6 +45,8 @@ namespace myAsteroidsGame.Source
             texture2go_[textureID] = texture;
             if (textureID == TextureID.PLAYER_SPACESHIP)
                 spaceship_.Graphics.Texture = texture;
+            if (textureID == TextureID.UFO)
+                followingUfo_.Graphics.Texture = texture;
         }
 
         public void Update(float deltaTime)
@@ -98,7 +103,7 @@ namespace myAsteroidsGame.Source
                         asteroids_.Add(new BigAsteroid(asteroidsSpawnBounds_[1].Item1, r.Next(20, asteroidsSpawnBounds_[1].Item2)));
                     }
                     go_.AddRange(asteroids_);
-                    for (int i = 1; i < go_.Count; i++)
+                    for (int i = 2; i < go_.Count; i++)
                         go_[i].Graphics.Texture = texture2go_[TextureID.ASTEROID];
                     respawnTime_ = 5.0f;
                 }
