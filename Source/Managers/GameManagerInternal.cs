@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using myAsteroidsGame.Source.GameObjects;
-
 using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame.Source.Managers
