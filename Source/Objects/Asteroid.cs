@@ -11,12 +11,6 @@ namespace myAsteroidsGame.Source.Objects
             Name = "Asteroid";
         }
 
-        public Asteroid(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics) :
-            base(xPos, yPos, physic, graphics)
-        {
-            Name = "Asteroid";
-        }
-
         public override void Update()
         {
             base.Update();

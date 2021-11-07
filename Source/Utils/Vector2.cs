@@ -36,6 +36,12 @@ namespace myAsteroidsGame.Source.Utils
         public static bool operator ==(Vector2 value1, Vector2 value2) => (value1.X == value2.X) && (value1.Y == value2.Y);
         public static bool operator !=(Vector2 value1, Vector2 value2) => !(value1 == value2);
 
+        public static float Distance(Vector2 value1, Vector2 value2)
+        {
+            return (float)Math.Sqrt((value1.X - value2.X) * (value1.X - value2.X) + 
+                                    (value1.Y - value2.Y) * (value1.Y - value2.Y));
+        }
+
         public static Vector2 Normalize(Vector2 vector)
         {
             Vector2 copy = vector;
@@ -60,9 +66,7 @@ namespace myAsteroidsGame.Source.Utils
         {
             if (by >= 1.0000f)
                 by = 1.0000f;
-            float xPos = Lerp(value1.X, value2.X, by);
-            float yPos = Lerp(value1.Y, value2.Y, by);
-            return new Vector2(xPos, yPos);
+            return new Vector2(Lerp(value1.X, value2.X, by), Lerp(value1.Y, value2.Y, by));
         }
 
         public float Length()

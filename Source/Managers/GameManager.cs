@@ -8,6 +8,14 @@ using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Objects;
 using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.Utils;
+using myAsteroidsGame.Source.Configs;
+
+// TODO: Сделать так, чтобы объекты по коллизии или истечению времени не сразу удалялись, а лишь 
+// становились не видимыми. Завезти счётчик времени, который по определённому интервалу будет очищать коллекции.
+// ТАК ЖЕ СЯДЬ И СДЕЛАЙ КОЛЛИЗИИ ХОТЯ БЫ ПО РАДИУСУ!!!!
+// Сделать класс (возможно запихать внутрь GameManagerInternal), в котором будут храниться тайминги спавна 
+// астероидов, тайминги очистки коллекций (для каждой коллекции свой таймер!), также такую штуку завезти для пули
+// и класса астероидов.
 
 namespace myAsteroidsGame.Source
 {
@@ -20,7 +28,9 @@ namespace myAsteroidsGame.Source
         private List<Asteroid> asteroids_;
         private Dictionary<TextureID, Texture2D> texture2go_;
         private List<Tuple<int, int>> asteroidsSpawnBounds_;
+
         private float respawnTime_;
+        private float cleaningTimeDestoy_;
 
         public GameManager(int screenWidth, int screenHeight)
         {
@@ -32,7 +42,9 @@ namespace myAsteroidsGame.Source
             texture2go_ = new Dictionary<TextureID, Texture2D>();
             asteroidsSpawnBounds_ = new List<Tuple<int, int>>();
             GameManagerInternal.GM = this;
-            respawnTime_ = 5.0f;
+
+            respawnTime_ = GameManagerConfig.RespawnTime;
+            cleaningTimeDestoy_ = GameManagerConfig.CleaningTime;
 
             go_.Add(spaceship_);
             go_.Add(followingUfo_);
@@ -54,6 +66,8 @@ namespace myAsteroidsGame.Source
             UpdateObjects();
             UpdatePhysics(deltaTime);
             SpawnAsteroids();
+            CleanDestroyObjectCollection();
+            //Console.WriteLine($"go Count = {go_.Count}");
         }
 
         public void DestroyObject(GameObject gameObject)
@@ -80,7 +94,7 @@ namespace myAsteroidsGame.Source
             if (kstate.IsKeyDown(Keys.Right))
                 spaceship_.Rotate(5.0f);
             if (kstate.IsKeyDown(Keys.Space))
-                spaceship_.Shoot();
+                 spaceship_.Shoot();
         }
 
         public System.Collections.IEnumerable ActiveObjects()
@@ -105,7 +119,7 @@ namespace myAsteroidsGame.Source
                     go_.AddRange(asteroids_);
                     for (int i = 2; i < go_.Count; i++)
                         go_[i].Graphics.Texture = texture2go_[TextureID.ASTEROID];
-                    respawnTime_ = 5.0f;
+                    respawnTime_ = GameManagerConfig.RespawnTime;
                 }
                 respawnTime_ -= 0.2f;
             }
@@ -121,9 +135,21 @@ namespace myAsteroidsGame.Source
         {
             foreach (var obj in go_)
                 obj.Update();
-            foreach (var obj in goToDestroy_)
-                go_.Remove(obj);
-            goToDestroy_.Clear();
+            foreach (GameObject obj in goToDestroy_)
+                go_.Find(x => x == obj).IsActive = false;
+        }
+
+        private void CleanDestroyObjectCollection()
+        {
+            if (cleaningTimeDestoy_ <= 0.0f)
+            {
+                foreach (var obj in goToDestroy_)
+                    go_.Remove(obj);
+                goToDestroy_.Clear();
+                cleaningTimeDestoy_ = GameManagerConfig.RespawnTime;
+            }
+            else
+                cleaningTimeDestoy_ -= 0.5f;
         }
     }
 }
