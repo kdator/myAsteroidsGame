@@ -1,2 +1,2 @@
 # myAsteroidsGame
-Клон игры Asteroids 1979 года от компании Atari.
+The Atari's clone of the game Asteroids from 1979 year 
