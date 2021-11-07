@@ -1,18 +1,21 @@
 ﻿using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.GameObjects.Graphics;
 using myAsteroidsGame.Source.GameObjects.Physics;
-using myAsteroidsGame.Source.Managers;
+
+using static myAsteroidsGame.Source.Managers.GameManagerInternal;
 
 namespace myAsteroidsGame.Source.Objects
 {
     class Bullet : GameObject
     {
-        private float maxSpeed_ = 500.0f;
-        private float timeToLife_ = 10.0f;
+        private float maxSpeed_;
+        private float timeToLife_;
 
-        public Bullet(float xPos, float yPos, float rotation) :
+        public Bullet(float xPos, float yPos, float rotation, float timeToLife, float maxSpeed) :
             base(xPos, yPos)
         {
+            maxSpeed_ = maxSpeed;
+            timeToLife_ = timeToLife;
             Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);
             Graphics = new GraphicsComponent();
             Transform.RotationDegree = rotation;
@@ -23,7 +26,7 @@ namespace myAsteroidsGame.Source.Objects
         public override void Update()
         {
             if (timeToLife_ <= 0.0f)
-                GameManagerInternal.GetInstance().DestroyObject(this);
+                GMI.DestroyObject(this);
             else
                 timeToLife_ -= 0.15f;
         }

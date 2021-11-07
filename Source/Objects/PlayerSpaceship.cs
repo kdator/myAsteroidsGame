@@ -6,6 +6,8 @@ using myAsteroidsGame.Source.GameObjects.Physics;
 using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Utils;
 
+using static myAsteroidsGame.Source.Managers.GameManagerInternal;
+
 namespace myAsteroidsGame.Source.Objects
 {
     class PlayerSpaceship : GameObject
@@ -15,22 +17,11 @@ namespace myAsteroidsGame.Source.Objects
         private float friction_;
         private float delayPerShoot_;
 
-        public PlayerSpaceship(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
-            : base(xPos, yPos, physic, graphics)
-        {
-            maxSpeed_ = 600.0f;
-            acceleration_ = 500.0f;
-            friction_ = 250.0f;
-            delayPerShoot_ = 3.0f;
-            Physic.MaxSpeed = maxSpeed_;
-            Name = "PlayerSpaceship";
-        }
-
         public PlayerSpaceship(float xPos, float yPos) : base(xPos, yPos)
         {
-            maxSpeed_ = 1000.0f;
-            acceleration_ = 500.0f;
-            friction_ = 250.0f;
+            maxSpeed_ = GMI.Configs.Ship.MaxSpeed;
+            acceleration_ = GMI.Configs.Ship.Acceleration;
+            friction_ = GMI.Configs.Ship.Friction;
             Physic = new VanilaPhysicsComponent(Transform, 1.0f, maxSpeed_);
             Graphics = new GraphicsComponent();
             Name = "PlayerSpaceship";
@@ -53,11 +44,13 @@ namespace myAsteroidsGame.Source.Objects
             {
                 var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
                                                     Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
-                                                    Transform.RotationDegree);
+                                                    Transform.RotationDegree,
+                                                    GMI.Configs.Ship.BulletLifeTime,
+                                                    GMI.Configs.Ship.BulletMaxSpeed);
                 // call GameManager internal to add bullet in list of game objects.
-                bullet.Graphics.Texture = GameManagerInternal.GetInstance().GetTexture(TextureID.BULLET);
-                GameManagerInternal.GetInstance().AddObject(bullet);
-                delayPerShoot_ = 3.0f;
+                bullet.Graphics.Texture = GMI.GetTexture(TextureID.BULLET);
+                GMI.AddObject(bullet);
+                delayPerShoot_ = GMI.Configs.Ship.DelayPerShoot;
             }
         }
 
@@ -73,7 +66,7 @@ namespace myAsteroidsGame.Source.Objects
             }
             delayPerShoot_ -= 0.25f;
             if (delayPerShoot_ > 3.0f && delayPerShoot_ < float.MaxValue)
-                delayPerShoot_ = 3.0f;
+                delayPerShoot_ = GMI.Configs.Ship.DelayPerShoot;
         }
     }
 }

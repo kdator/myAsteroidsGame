@@ -31,14 +31,6 @@ namespace myAsteroidsGame.Source.GameObjects
 
         public string Name { get; set; } = "GameObject";
 
-        public GameObject(float xPos, float yPos, IPhysicsComponent physic, IGraphicsComponent graphics)
-        {
-            transform_ = new Transform(xPos, yPos);
-            physic_ = physic;
-            graphics_ = graphics;
-            isActive_ = true;
-        }
-
         public GameObject(float xPos, float yPos)
         {
             transform_ = new Transform(xPos, yPos);
