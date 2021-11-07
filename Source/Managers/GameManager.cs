@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using myAsteroidsGame.Source.Managers;
@@ -16,6 +15,8 @@ using myAsteroidsGame.Source.Configs;
 // Сделать класс (возможно запихать внутрь GameManagerInternal), в котором будут храниться тайминги спавна 
 // астероидов, тайминги очистки коллекций (для каждой коллекции свой таймер!), также такую штуку завезти для пули
 // и класса астероидов.
+// Убрать зависимость от XNA ввода.
+// Также почему-то не работает смена скорости и ускорения игрока. То есть не меняется позиция вектора.
 
 namespace myAsteroidsGame.Source
 {
@@ -26,7 +27,7 @@ namespace myAsteroidsGame.Source
         private List<GameObject> go_;
         private List<GameObject> goToDestroy_;
         private List<Asteroid> asteroids_;
-        private Dictionary<TextureID, Texture2D> texture2go_;
+        private Dictionary<TextureID, object> texture2go_;
         private List<Tuple<int, int>> asteroidsSpawnBounds_;
 
         private float respawnTime_;
@@ -39,7 +40,7 @@ namespace myAsteroidsGame.Source
             go_ = new List<GameObject>();
             goToDestroy_ = new List<GameObject>();
             asteroids_ = new List<Asteroid>();
-            texture2go_ = new Dictionary<TextureID, Texture2D>();
+            texture2go_ = new Dictionary<TextureID, object>();
             asteroidsSpawnBounds_ = new List<Tuple<int, int>>();
             GameManagerInternal.GM = this;
 
@@ -52,13 +53,13 @@ namespace myAsteroidsGame.Source
             asteroidsSpawnBounds_.Add(new Tuple<int, int>(screenWidth - 10, screenHeight - 200));
         }
 
-        public void LoadContent(TextureID textureID, Texture2D texture)
+        public void LoadContent(TextureID textureID, object texture, int width, int height)
         {
             texture2go_[textureID] = texture;
             if (textureID == TextureID.PLAYER_SPACESHIP)
-                spaceship_.Graphics.Texture = texture;
+                spaceship_.Graphics.LoadContent(texture, width, height);
             if (textureID == TextureID.UFO)
-                followingUfo_.Graphics.Texture = texture;
+                followingUfo_.Graphics.LoadContent(texture, width, height);
         }
 
         public void Update(float deltaTime)
@@ -67,7 +68,6 @@ namespace myAsteroidsGame.Source
             UpdatePhysics(deltaTime);
             SpawnAsteroids();
             CleanDestroyObjectCollection();
-            //Console.WriteLine($"go Count = {go_.Count}");
         }
 
         public void DestroyObject(GameObject gameObject)
@@ -80,7 +80,7 @@ namespace myAsteroidsGame.Source
             go_.Add(gameObject);
         }
 
-        public Texture2D GetTexture(TextureID textureID)
+        public object GetTexture(TextureID textureID)
         {
             return texture2go_[textureID];
         }
@@ -136,7 +136,7 @@ namespace myAsteroidsGame.Source
             foreach (var obj in go_)
                 obj.Update();
             foreach (GameObject obj in goToDestroy_)
-                go_.Find(x => x == obj).IsActive = false;
+                go_.Find(x => Object.ReferenceEquals(x, obj)).IsActive = false;
         }
 
         private void CleanDestroyObjectCollection()

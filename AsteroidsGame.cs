@@ -41,11 +41,20 @@ namespace myAsteroidsGame
         {
             spriteBatch_ = new SpriteBatch(GraphicsDevice);
 
-            gameManager_.LoadContent(TextureID.PLAYER_SPACESHIP, Content.Load<Texture2D>("player_spaceship"));
-            gameManager_.LoadContent(TextureID.ASTEROID, Content.Load<Texture2D>("asteroid"));
-            gameManager_.LoadContent(TextureID.ASTEROID_SHARD, Content.Load<Texture2D>("asteroid_shard"));
-            gameManager_.LoadContent(TextureID.BULLET, Content.Load<Texture2D>("bullet"));
-            gameManager_.LoadContent(TextureID.UFO, Content.Load<Texture2D>("ufo"));
+            var texture = Content.Load<Texture2D>("player_spaceship");
+            gameManager_.LoadContent(TextureID.PLAYER_SPACESHIP, texture, texture.Width, texture.Height);
+
+            texture = Content.Load<Texture2D>("asteroid");
+            gameManager_.LoadContent(TextureID.ASTEROID, texture, texture.Width, texture.Height);
+
+            texture = Content.Load<Texture2D>("asteroid_shard");
+            gameManager_.LoadContent(TextureID.ASTEROID_SHARD, texture, texture.Width, texture.Height);
+
+            texture = Content.Load<Texture2D>("bullet");
+            gameManager_.LoadContent(TextureID.BULLET, texture, texture.Width, texture.Height);
+
+            texture = Content.Load<Texture2D>("ufo");
+            gameManager_.LoadContent(TextureID.UFO, texture, texture.Width, texture.Height);
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,7 +77,7 @@ namespace myAsteroidsGame
                 Source.Utils.Vector2 newPos = obj.Transform.Position;
                 ToScreenPosition(ref newPos);
                 obj.Transform.Position = newPos;
-                spriteBatch_.Draw(obj.Graphics.Texture, ToXnaVector2(obj.Transform.Position), null, Color.White,
+                spriteBatch_.Draw(obj.Graphics.Texture as Texture2D, ToXnaVector2(obj.Transform.Position), null, Color.White,
                                   obj.Transform.RotationInRadians, ToXnaVector2(obj.Graphics.Origin),
                                   1f, SpriteEffects.None, 0f);
             }

@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-using myAsteroidsGame.Source.Configs;
+﻿using myAsteroidsGame.Source.Configs;
 using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.Utils;
 
@@ -40,7 +38,7 @@ namespace myAsteroidsGame.Source.Managers
             gameManager_.AddObject(gameObject);
         }
 
-        public Texture2D GetTexture(TextureID textureID)
+        public object GetTexture(TextureID textureID)
         {
             return gameManager_.GetTexture(textureID);
         }  
