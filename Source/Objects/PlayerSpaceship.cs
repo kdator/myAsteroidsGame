@@ -3,7 +3,6 @@
 using myAsteroidsGame.Source.GameObjects;
 using myAsteroidsGame.Source.GameObjects.Graphics;
 using myAsteroidsGame.Source.GameObjects.Physics;
-using myAsteroidsGame.Source.Managers;
 using myAsteroidsGame.Source.Utils;
 
 using static myAsteroidsGame.Source.Managers.GameManagerInternal;
@@ -42,8 +41,8 @@ namespace myAsteroidsGame.Source.Objects
             // delay per shoot value decreases in Update() func.
             if (delayPerShoot_ <= 0.0f)
             {
-                var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
-                                                    Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Texture.Height / 2,
+                var bullet = new Bullet(Transform.Position.X + (float)Math.Sin(Transform.RotationInRadians) * Graphics.Height / 2,
+                                                    Transform.Position.Y - (float)Math.Cos(Transform.RotationInRadians) * Graphics.Height / 2,
                                                     Transform.RotationDegree,
                                                     GMI.Configs.Ship.BulletLifeTime,
                                                     GMI.Configs.Ship.BulletMaxSpeed);

@@ -6,7 +6,7 @@ namespace myAsteroidsGame.Source.Configs
 {
     class ShipConfigs : IShipConfig
     {
-        public float MaxSpeed => 1000.0f;
+        public float MaxSpeed => 500.0f;
 
         public float Rotation => 5.0f;
 

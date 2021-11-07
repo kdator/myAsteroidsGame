@@ -1,6 +1,4 @@
 ﻿using myAsteroidsGame.Source.GameObjects;
-using myAsteroidsGame.Source.GameObjects.Graphics;
-using myAsteroidsGame.Source.GameObjects.Physics;
 
 namespace myAsteroidsGame.Source.Objects
 {

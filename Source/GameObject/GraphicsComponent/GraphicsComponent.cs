@@ -1,20 +1,31 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-using myAsteroidsGame.Source.Utils;
+﻿using myAsteroidsGame.Source.Utils;
 
 namespace myAsteroidsGame.Source.GameObjects.Graphics
 {
     class GraphicsComponent : IGraphicsComponent
     {
-        private Texture2D texture_;
-        public Texture2D Texture
+        private object texture_;
+        public object Texture
         {
             get => texture_;
             set => texture_ = value;
         }
 
+        private int width_;
+        public int Width => width_;
+
+        private int height_;
+        public int Height => height_;
+
         public Vector2 Origin {
-            get => new Vector2(texture_.Width / 2, texture_.Height / 2);
+            get => new Vector2(Width / 2, Height / 2);
+        }
+
+        public void LoadContent(object texture, int width, int height)
+        {
+            width_ = width;
+            height_ = height;
+            texture_ = texture;
         }
     }
 }
